@@ -1,20 +1,13 @@
 ﻿using CleanArch.Shared.Abstractions;
 using CleanArch.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace CleanArch.Infrastructure.Persistence;
 
-public class CleanArchContext : DbContext
+public class CleanArchContext(DbContextOptions<CleanArchContext> options) : DbContext(options)
 {
-    public CleanArchContext(DbContextOptions options) : base(options)
-    {
-    }
-
-    protected CleanArchContext()
-    {
-    }
-
     public DbSet<ScheduleSlot> ScheduleSlots { get; set; }
     public DbSet<Appointment> Appointments { get; set; }
     public DbSet<Customer> Customers { get; set; }
@@ -44,8 +37,20 @@ public class CleanArchContext : DbContext
 
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-        modelBuilder.Entity<BaseEntity<Guid>>()
-              .HasQueryFilter(e => !e.IsDeleted);
+        foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+        {
+            if (typeof(BaseEntity<Guid>).IsAssignableFrom(entityType.ClrType))
+            {
+                var parameter = Expression.Parameter(entityType.ClrType, "e");
+                var body = Expression.Equal(
+                    Expression.Property(parameter, nameof(BaseEntity<>.IsDeleted)),
+                    Expression.Constant(false)
+                );
+
+                var lambda = Expression.Lambda(body, parameter);
+                modelBuilder.Entity(entityType.ClrType).HasQueryFilter(lambda);
+            }
+        }
     }
     public override int SaveChanges()
     {
