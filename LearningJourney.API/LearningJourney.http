@@ -1,6 +1,40 @@
 @Architectures_HostAddress = http://localhost:5262
-
-GET {{Architectures_HostAddress}}/weatherforecast/
+@appointmentId = 9deaf88c-17f8-4e3e-86d6-cfa845e0e47a
+###
+# Get all appointments
+GET {{Architectures_HostAddress}}/api/appointments
 Accept: application/json
 
 ###
+# Get an appointment by ID
+GET {{Architectures_HostAddress}}/api/appointments/{{appointmentId}}
+Accept: application/json
+
+###
+# Create a new appointment
+POST {{Architectures_HostAddress}}/api/appointments
+Content-Type: application/json
+
+{
+  "customerId": "{{customerId}}",
+  "doctorId": "{{doctorId}}",
+  "specialtyId": "{{specialtyId}}",
+  "scheduledAt": "2025-12-28T10:00:00Z"
+}
+
+###
+# Update an existing appointment
+PUT {{Architectures_HostAddress}}/api/appointments/{{appointmentId}}
+Content-Type: application/json
+
+{
+  "id": "{{appointmentId}}",
+  "customerId": "{{customerId}}",
+  "doctorId": "{{doctorId}}",
+  "specialtyId": "{{specialtyId}}",
+  "scheduledAt": "2025-12-29T11:00:00Z"
+}
+
+###
+# Delete an appointment
+DELETE {{Architectures_HostAddress}}/api/appointments/{{appointmentId}}

@@ -1,7 +1,4 @@
-﻿using LearningJourney.Shared.Entities;
-using Microsoft.EntityFrameworkCore;
-
-namespace LearningJourney.Application.Common.Appstractions;
+﻿namespace LearningJourney.Application.Common.Appstractions;
 
 public interface ILearningJourneyContext
 {

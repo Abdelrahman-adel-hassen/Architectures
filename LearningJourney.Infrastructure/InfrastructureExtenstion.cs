@@ -1,11 +1,4 @@
-﻿using LearningJourney.Application.Common.Appstractions;
-using LearningJourney.Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-
-namespace LearningJourney.Infrastructure;
+﻿namespace LearningJourney.Infrastructure;
 
 public static class InfrastructureExtenstion
 {
@@ -18,7 +11,7 @@ public static class InfrastructureExtenstion
                b => b.MigrationsAssembly(typeof(LearningJourneyContext).Assembly.FullName));
         });
 
-        services.AddScoped<ILearningJourneyContext>(provider => provider.GetRequiredService<ILearningJourneyContext>());
+        services.AddScoped<ILearningJourneyContext>(provider => provider.GetRequiredService<LearningJourneyContext>());
 
         return services.BuildServiceProvider();
     }

@@ -1,8 +1,4 @@
-﻿using LearningJourney.Application.Common.Appstractions;
-using LearningJourney.Shared.Entities;
-using MediatR;
-
-namespace LearningJourney.Application.Commands.Appointments;
+﻿namespace LearningJourney.Application.Commands.Appointments;
 
 public record CreateAppointmentCommand(
     Guid CustomerId,

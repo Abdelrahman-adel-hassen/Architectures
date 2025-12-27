@@ -1,11 +1,4 @@
-﻿using LearningJourney.Application.Common.Appstractions;
-using LearningJourney.Shared.Abstractions;
-using LearningJourney.Shared.Entities;
-using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
-using System.Reflection;
-
-namespace LearningJourney.Infrastructure.Persistence;
+﻿namespace LearningJourney.Infrastructure.Persistence;
 
 public class LearningJourneyContext(DbContextOptions<LearningJourneyContext> options) : DbContext(options), ILearningJourneyContext
 {

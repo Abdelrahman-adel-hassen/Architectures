@@ -1,15 +1,10 @@
-﻿using LearningJourney.Application.Commands.Appointments;
-using LearningJourney.Application.Queries.Appointments;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-
-namespace LearningJourney.API.Controllers;
+﻿namespace LearningJourney.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AppointmentsController(ISender mediator) : ControllerBase
+public class AppointmentsController(IMediator mediator) : ControllerBase
 {
-    private readonly ISender _mediator = mediator;
+    private readonly IMediator _mediator = mediator;
 
     [HttpPost]
     public async Task<IActionResult> Create(CreateAppointmentCommand command)

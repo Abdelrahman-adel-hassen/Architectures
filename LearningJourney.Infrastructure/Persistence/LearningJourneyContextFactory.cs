@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Configuration;
-
-namespace LearningJourney.Infrastructure.Persistence;
+﻿namespace LearningJourney.Infrastructure.Persistence;
 
 public class LearningJourneyContextFactory : IDesignTimeDbContextFactory<LearningJourneyContext>
 {

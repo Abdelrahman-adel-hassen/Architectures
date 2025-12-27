@@ -1,6 +1,4 @@
-﻿namespace LearningJourney.Shared.Abstractions;
-
-public abstract class BaseEntity<T> : Entity<T>, IAuditable, ISoftDelete
+﻿public abstract class BaseEntity<T> : Entity<T>, IAuditable, ISoftDelete
 {
 
     // Auditing

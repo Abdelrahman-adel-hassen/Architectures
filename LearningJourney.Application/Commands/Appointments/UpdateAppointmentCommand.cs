@@ -1,8 +1,4 @@
-﻿using LearningJourney.Application.Common.Appstractions;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-
-namespace LearningJourney.Application.Commands.Appointments;
+﻿namespace LearningJourney.Application.Commands.Appointments;
 
 public record UpdateAppointmentCommand(
     Guid Id,

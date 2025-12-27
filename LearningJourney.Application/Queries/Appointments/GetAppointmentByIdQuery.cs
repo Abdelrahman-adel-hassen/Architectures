@@ -1,9 +1,4 @@
-﻿using LearningJourney.Application.Common.Appstractions;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System;
-
-namespace LearningJourney.Application.Queries.Appointments;
+﻿namespace LearningJourney.Application.Queries.Appointments;
 
 public record GetAppointmentByIdQuery(Guid Id) : IRequest<AppointmentDto?>;
 public class AppointmentDto
