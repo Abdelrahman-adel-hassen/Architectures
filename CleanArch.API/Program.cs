@@ -1,4 +1,5 @@
 using CleanArch.Infrastructure;
+using CleanArch.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +10,13 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication();
+//var applicationAssembly = typeof(ApplicationBuilderExtensions).Assembly;
 
+//builder.Services.AddMediatR(config =>
+//{
+//    config.RegisterServicesFromAssemblies(applicationAssembly);
+//});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

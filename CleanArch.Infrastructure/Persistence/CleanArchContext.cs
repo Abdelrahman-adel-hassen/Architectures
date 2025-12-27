@@ -1,4 +1,5 @@
-﻿using CleanArch.Shared.Abstractions;
+﻿using CleanArch.Application.Common.Appstractions;
+using CleanArch.Shared.Abstractions;
 using CleanArch.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -6,7 +7,7 @@ using System.Reflection;
 
 namespace CleanArch.Infrastructure.Persistence;
 
-public class CleanArchContext(DbContextOptions<CleanArchContext> options) : DbContext(options)
+public class CleanArchContext(DbContextOptions<CleanArchContext> options) : DbContext(options), ICleanArchContext
 {
     public DbSet<ScheduleSlot> ScheduleSlots { get; set; }
     public DbSet<Appointment> Appointments { get; set; }
