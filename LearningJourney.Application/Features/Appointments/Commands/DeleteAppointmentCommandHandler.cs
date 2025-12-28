@@ -1,8 +1,8 @@
-﻿namespace LearningJourney.Application.Commands.Appointments;
+﻿namespace LearningJourney.Application.Features.Appointments.Commands;
 
 public record DeleteAppointmentCommand(Guid Id) : IRequest<Unit>;
 
-public class DeleteAppointmentCommandHandler(ILearningJourneyContext context) : IRequestHandler<DeleteAppointmentCommand,Unit>
+public class DeleteAppointmentCommandHandler(ILearningJourneyContext context) : IRequestHandler<DeleteAppointmentCommand, Unit>
 {
     private readonly ILearningJourneyContext _context = context;
 

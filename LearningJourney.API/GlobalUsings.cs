@@ -1,8 +1,14 @@
 ﻿global using LearningJourney.Application;
-global using LearningJourney.Application.Commands.Appointments;
 global using LearningJourney.Application.Common.Behaviors;
-global using LearningJourney.Application.Queries.Appointments;
+global using LearningJourney.Application.Features.Customers.Commands;
+global using LearningJourney.Application.Features.Customers.Queries;
 global using LearningJourney.Infrastructure;
 global using MediatR;
 global using Microsoft.AspNetCore.Mvc;
 global using Serilog;
+global using LearningJourney.Application.Features.Appointments.Commands;
+global using LearningJourney.Application.Features.Appointments.Queries;
+global using LearningJourney.Application.Features.Doctors.Commands;
+global using LearningJourney.Application.Features.Doctors.Queries;
+global using LearningJourney.Application.Features.Hospitals.Commands;
+global using LearningJourney.Application.Features.Hospitals.Queries;

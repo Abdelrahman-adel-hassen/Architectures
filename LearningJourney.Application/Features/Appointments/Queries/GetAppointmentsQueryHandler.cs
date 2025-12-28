@@ -1,4 +1,4 @@
-﻿namespace LearningJourney.Application.Queries.Appointments;
+﻿namespace LearningJourney.Application.Features.Appointments.Queries;
 
 public record GetAppointmentsQuery() : IRequest<List<GetAppointmentDto>>;
 public class GetAppointmentDto

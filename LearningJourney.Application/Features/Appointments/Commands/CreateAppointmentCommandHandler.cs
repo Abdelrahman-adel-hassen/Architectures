@@ -1,4 +1,4 @@
-﻿namespace LearningJourney.Application.Commands.Appointments;
+﻿namespace LearningJourney.Application.Features.Appointments.Commands;
 
 public record CreateAppointmentCommand(
     Guid CustomerId,

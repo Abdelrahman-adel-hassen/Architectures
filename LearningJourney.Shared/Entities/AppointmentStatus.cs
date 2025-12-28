@@ -1,6 +1,4 @@
-﻿using LearningJourney.Shared.Abstractions;
-
-namespace LearningJourney.Shared.Entities;
+﻿namespace LearningJourney.Shared.Entities;
 
 public class AppointmentStatus :  BaseEntity<Guid>
 {

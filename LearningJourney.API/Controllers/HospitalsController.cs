@@ -1,20 +1,20 @@
-﻿namespace LearningJourney.API.Controllers;
+namespace LearningJourney.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AppointmentsController(ISender mediator) : ControllerBase
+public class HospitalsController(ISender mediator) : ControllerBase
 {
     private readonly ISender _mediator = mediator;
 
     [HttpPost]
-    public async Task<IActionResult> Create(CreateAppointmentCommand command)
+    public async Task<IActionResult> Create(CreateHospitalCommand command)
     {
         var id = await _mediator.Send(command);
         return CreatedAtAction(nameof(GetById), new { id }, id);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(Guid id, UpdateAppointmentCommand command)
+    public async Task<IActionResult> Update(Guid id, UpdateHospitalCommand command)
     {
         if (id != command.Id) return BadRequest();
         await _mediator.Send(command);
@@ -24,23 +24,22 @@ public class AppointmentsController(ISender mediator) : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(Guid id)
     {
-        await _mediator.Send(new DeleteAppointmentCommand(id));
+        await _mediator.Send(new DeleteHospitalCommand(id));
         return NoContent();
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {
-        var result = await _mediator.Send(new GetAppointmentByIdQuery(id));
-        if (result == null) 
-            return NotFound();
+        var result = await _mediator.Send(new GetHospitalByIdQuery(id));
+        if (result == null) return NotFound();
         return Ok(result);
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var result = await _mediator.Send(new GetAppointmentsQuery());
+        var result = await _mediator.Send(new GetHospitalsQuery());
         return Ok(result);
     }
 }
