@@ -17,10 +17,9 @@ POST {{Architectures_HostAddress}}/api/customers
 Content-Type: application/json
 
 {
-  "firstName": "Jane",
-  "lastName": "Doe",
+  "FullName": "Ahmed Ahmed",
   "email": "jane.doe@example.com",
-  "phone": "+1234567890"
+  "PhoneNumber": "+14567890"
 }
 
 ###

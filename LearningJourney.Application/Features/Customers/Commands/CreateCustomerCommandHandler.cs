@@ -1,23 +1,40 @@
+using FluentValidation;
+
 namespace LearningJourney.Application.Features.Customers.Commands;
 
-public record CreateCustomerCommand(string FirstName, string LastName, string Email) : IRequest<Guid>;
-
-public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand, Guid>
+public record CreateCustomerCommand(string FullName, string Email,string PhoneNumber) : IRequest<Guid>
 {
-    private readonly ILearningJourneyContext _context;
-
-    public CreateCustomerCommandHandler(ILearningJourneyContext context)
+    public class Validator : AbstractValidator<CreateCustomerCommand>
     {
-        _context = context;
+        public Validator()
+        {
+            RuleFor(x => x.FullName)
+                .NotEmpty().WithMessage("Full name is required")
+                .MaximumLength(100).WithMessage("Full name cannot exceed 100 characters");
+
+            RuleFor(x => x.Email)
+                .NotEmpty().WithMessage("Email is required")
+                .EmailAddress().WithMessage("Invalid email address");
+
+            RuleFor(x => x.PhoneNumber)
+                .NotEmpty().WithMessage("Phone number is required")
+                .Matches(@"^\+?\d{10,15}$").WithMessage("Invalid phone number format");
+        }
     }
+}
+
+public class CreateCustomerCommandHandler(ILearningJourneyContext context) : IRequestHandler<CreateCustomerCommand, Guid>
+{
+    private readonly ILearningJourneyContext _context = context;
 
     public async Task<Guid> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
     {
         var entity = new Customer
         {
             Id = Guid.NewGuid(),
-            FullName = request.FirstName + request.LastName,
-            Email = request.Email
+            FullName = request.FullName,
+            Email = request.Email,
+            PhoneNumber = request.PhoneNumber
         };
 
         _context.Customers.Add(entity);

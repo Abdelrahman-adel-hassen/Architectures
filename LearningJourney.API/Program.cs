@@ -18,6 +18,7 @@ builder.Services.AddMediatR(cfg =>
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidatorBehavior<,>));
 
 builder.Services.AddInfrastructure(builder.Configuration);
 
