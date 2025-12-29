@@ -8,3 +8,8 @@ global using System.Diagnostics;
 global using AutoMapper;
 global using LearningJourney.Application.Common.Mappings;
 global using System.Reflection;
+global using FluentValidation;
+global using Microsoft.AspNetCore.Diagnostics;
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.AspNetCore.Mvc;
+global using LearningJourney.Application.Common.Exceptions;

@@ -13,4 +13,4 @@ global using MediatR;
 global using Microsoft.AspNetCore.Mvc;
 global using Serilog;
 global using System.Reflection;
-
+global using LearningJourney.Application.Common.Exceptions.Handler;

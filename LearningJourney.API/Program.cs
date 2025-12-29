@@ -24,6 +24,9 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services.AddApplication();
 
+builder.Services
+    .AddExceptionHandler<CustomExceptionHandler>();
+
 var app = builder.Build();
 
 // Add this to Program.cs for debugging
@@ -33,6 +36,8 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+
+app.UseExceptionHandler(options => { });
 
 app.UseHttpsRedirection();
 
