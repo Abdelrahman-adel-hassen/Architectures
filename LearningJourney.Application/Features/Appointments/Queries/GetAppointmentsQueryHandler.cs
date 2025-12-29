@@ -23,7 +23,7 @@ public class GetAppointmentsQueryHandler(ILearningJourneyContext context) : IReq
                 Id = a.Id,
                 CustomerName = a.Customer.FullName,
                 DoctorName = a.Doctor.FullName,
-                AppointmentDate = a.AppointmentDate
+                AppointmentDate = a.Date
             })
             .ToListAsync(cancellationToken);
     }

@@ -27,7 +27,7 @@ public class GetAppointmentByIdQueryHandler(ILearningJourneyContext context) : I
             Id = appointment.Id,
             CustomerName = appointment.Customer.FullName,
             DoctorName = appointment.Doctor.FullName,
-            AppointmentDate = appointment.AppointmentDate
+            AppointmentDate = appointment.Date
         };
     }
 }

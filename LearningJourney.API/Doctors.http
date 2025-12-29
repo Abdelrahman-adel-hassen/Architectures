@@ -1,0 +1,50 @@
+@Architectures_HostAddress = http://localhost:5262
+@doctorId = d1d2d3d4-0000-4000-8000-000000000041
+
+###
+# Get all doctors
+GET {{Architectures_HostAddress}}/api/doctors
+Accept: application/json
+
+###
+# Get a doctor by ID
+GET {{Architectures_HostAddress}}/api/doctors/{{doctorId}}
+Accept: application/json
+
+###
+# Create a new doctor
+POST {{Architectures_HostAddress}}/api/doctors
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Smith",
+  "email": "john.smith@example.com",
+  "phone": "+19876543210",
+  "specialtyId": "{{specialtyId}}",
+  "hospitalId": "h1h2h3h4-0000-4000-8000-000000000061"
+}
+
+###
+# Update an existing doctor
+PUT {{Architectures_HostAddress}}/api/doctors/{{doctorId}}
+Content-Type: application/json
+
+{
+  "id": "{{doctorId}}",
+  "firstName": "John",
+  "lastName": "Smith",
+  "email": "john.smith@newdomain.com",
+  "phone": "+19876543210",
+  "specialtyId": "{{specialtyId}}",
+  "hospitalId": "h1h2h3h4-0000-4000-8000-000000000061"
+}
+
+###
+# Delete a doctor
+DELETE {{Architectures_HostAddress}}/api/doctors/{{doctorId}}
+
+###
+# Test doctors endpoint (lightweight health check)
+GET {{Architectures_HostAddress}}/api/doctors/test
+Accept: application/json

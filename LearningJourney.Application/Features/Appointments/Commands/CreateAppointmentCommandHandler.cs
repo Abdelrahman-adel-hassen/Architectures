@@ -17,8 +17,7 @@ public class CreateAppointmentCommandHandler(ILearningJourneyContext context) : 
             Id = Guid.NewGuid(),
             CustomerId = request.CustomerId,
             DoctorId = request.DoctorId,
-            ScheduleSlotId = request.ScheduleSlotId,
-            AppointmentDate = request.AppointmentDate,
+            Date = request.AppointmentDate,
             CreatedAt = DateTime.UtcNow,
             CreatedBy = "System" 
         };

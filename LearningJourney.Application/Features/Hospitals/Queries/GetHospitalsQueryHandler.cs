@@ -19,7 +19,6 @@ public class GetHospitalsQueryHandler : IRequestHandler<GetHospitalsQuery, IEnum
                              {
                                  Id = h.Id,
                                  Name = h.Name,
-                                 CityId = h.CityId
                              })
                              .ToListAsync(cancellationToken);
     }

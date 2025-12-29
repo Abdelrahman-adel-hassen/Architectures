@@ -22,7 +22,6 @@ public class UpdateHospitalCommandHandler : IRequestHandler<UpdateHospitalComman
             throw new KeyNotFoundException($"Hospital with id '{request.Id}' was not found.");
 
         entity.Name = request.Name;
-        entity.CityId = request.CityId;
 
         await _context.SaveChangesAsync(cancellationToken);
         return Unit.Value;

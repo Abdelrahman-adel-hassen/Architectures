@@ -21,7 +21,6 @@ public class CreateHospitalCommandHandler : IRequestHandler<CreateHospitalComman
         {
             Id = Guid.NewGuid(),
             Name = request.Name,
-            CityId = request.CityId
         };
 
         _context.Hospitals.Add(entity);

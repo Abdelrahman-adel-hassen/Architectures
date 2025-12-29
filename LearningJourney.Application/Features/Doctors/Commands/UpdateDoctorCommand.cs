@@ -18,7 +18,6 @@ public class UpdateDoctorCommandHandler : IRequestHandler<UpdateDoctorCommand, U
             throw new KeyNotFoundException($"Doctor with id '{request.Id}' was not found.");
 
         entity.FullName = request.FullName;
-        entity.SpecialtyId = request.SpecialtyId;
         entity.HospitalId = request.HospitalId;
 
         await _context.SaveChangesAsync(cancellationToken);

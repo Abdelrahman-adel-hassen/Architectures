@@ -1,6 +1,6 @@
 namespace LearningJourney.Application.Features.Doctors.Commands;
 
-public record CreateDoctorCommand(string FullName, Guid SpecialtyId, Guid HospitalId) : IRequest<Guid>;
+public record CreateDoctorCommand(string FullName, Guid HospitalId) : IRequest<Guid>;
 
 public class CreateDoctorCommandHandler : IRequestHandler<CreateDoctorCommand, Guid>
 {
@@ -17,7 +17,6 @@ public class CreateDoctorCommandHandler : IRequestHandler<CreateDoctorCommand, G
         {
             Id = Guid.NewGuid(),
             FullName = request.FullName,
-            SpecialtyId = request.SpecialtyId,
             HospitalId = request.HospitalId
         };
 

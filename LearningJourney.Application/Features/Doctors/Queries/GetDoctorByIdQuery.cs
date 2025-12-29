@@ -15,7 +15,6 @@ public class GetDoctorByIdQueryHandler(ILearningJourneyContext context) : IReque
                                 {
                                     Id = d.Id,
                                     FullName = d.FullName,
-                                    SpecialtyId = d.SpecialtyId,
                                     HospitalId = d.HospitalId
                                 })
                                 .SingleOrDefaultAsync(cancellationToken);

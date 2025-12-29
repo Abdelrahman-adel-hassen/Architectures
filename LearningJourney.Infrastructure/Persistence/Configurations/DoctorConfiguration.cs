@@ -1,8 +1,4 @@
-﻿using LearningJourney.Shared.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace LearningJourney.Infrastructure.Persistence.Configurations;
+﻿namespace LearningJourney.Infrastructure.Persistence.Configurations;
 
 public class DoctorConfiguration : IEntityTypeConfiguration<Doctor>
 {

@@ -19,8 +19,7 @@ public class UpdateAppointmentCommandHandler(ILearningJourneyContext context) : 
 
         appointment.CustomerId = request.CustomerId;
         appointment.DoctorId = request.DoctorId;
-        appointment.ScheduleSlotId = request.ScheduleSlotId;
-        appointment.AppointmentDate = request.AppointmentDate;
+        appointment.Date = request.AppointmentDate;
         appointment.LastModifiedAt = DateTime.UtcNow;
         appointment.LastModifiedBy = "System";
 

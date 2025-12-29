@@ -17,7 +17,6 @@ public class LearningJourneyContextFactory : IDesignTimeDbContextFactory<Learnin
             configuration.GetConnectionString("DefaultConnection")
         );
 
-        // 3️⃣ Return new context
         return new LearningJourneyContext(optionsBuilder.Options);
     }
 }

@@ -1,5 +1,7 @@
 @Architectures_HostAddress = http://localhost:5262
-@appointmentId = 9deaf88c-17f8-4e3e-86d6-cfa845e0e47a
+@appointmentId = c1c2c3d4-0000-4000-8000-000000000021
+@customerId = c1c2c3d4-0000-4000-8000-000000000021
+
 ###
 # Get all appointments
 GET {{Architectures_HostAddress}}/api/appointments

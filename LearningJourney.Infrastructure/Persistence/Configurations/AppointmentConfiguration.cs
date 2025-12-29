@@ -1,6 +1,4 @@
-﻿using LearningJourney.Shared.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using LearningJourney.Shared.Enums;
 
 namespace LearningJourney.Infrastructure.Persistence.Configurations;
 
@@ -10,7 +8,7 @@ public class AppointmentConfiguration : IEntityTypeConfiguration<Appointment>
     {
         builder.HasKey(x => x.Id);
 
-        builder.Property(x => x.AppointmentDate)
+        builder.Property(x => x.Date)
                .IsRequired();
 
         builder.HasOne(x => x.Customer)
@@ -23,13 +21,9 @@ public class AppointmentConfiguration : IEntityTypeConfiguration<Appointment>
                .HasForeignKey(x => x.DoctorId)
                .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasOne(x => x.ScheduleSlot)
-               .WithMany()
-               .HasForeignKey(x => x.ScheduleSlotId)
-               .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasOne(x => x.AppointmentStatus)
-               .WithMany(s => s.Appointments)
-               .HasForeignKey(x => x.AppointmentStatusId);
+        builder.Property(a => a.Status)
+                .HasConversion<int>()
+                .IsRequired()
+                .HasDefaultValue(AppointmentStatus.Pending);
     }
 }

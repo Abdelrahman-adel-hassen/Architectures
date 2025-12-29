@@ -1,17 +1,13 @@
-﻿namespace LearningJourney.Infrastructure.Persistence;
+﻿using LearningJourney.Shared.Abstractions;
+
+namespace LearningJourney.Infrastructure.Persistence;
 
 public class LearningJourneyContext(DbContextOptions<LearningJourneyContext> options) : DbContext(options), ILearningJourneyContext
 {
-    public DbSet<ScheduleSlot> ScheduleSlots { get; set; }
     public DbSet<Appointment> Appointments { get; set; }
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Doctor> Doctors { get; set; }
-    public DbSet<AppointmentStatus> AppointmentStatuses { get; set; }
-    public DbSet<Attachment> Attachments { get; set; }
-    public DbSet<Comment> Comments { get; set; }
     public DbSet<Hospital> Hospitals { get; set; }
-    public DbSet<Owner> Owners { get; set; }
-    public DbSet<City> Cities { get; set; }
 
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
     {
@@ -30,7 +26,12 @@ public class LearningJourneyContext(DbContextOptions<LearningJourneyContext> opt
         modelBuilder.HasDefaultSchema("CleanArch");
 
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        
+        ApplySoftDelete(modelBuilder);
+    }
 
+    private static void ApplySoftDelete(ModelBuilder modelBuilder)
+    {
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
         {
             if (typeof(BaseEntity<Guid>).IsAssignableFrom(entityType.ClrType))
@@ -46,6 +47,7 @@ public class LearningJourneyContext(DbContextOptions<LearningJourneyContext> opt
             }
         }
     }
+
     public override int SaveChanges()
     {
         ApplyAuditInfo();

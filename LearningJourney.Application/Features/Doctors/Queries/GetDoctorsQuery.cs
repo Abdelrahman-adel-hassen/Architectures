@@ -13,7 +13,6 @@ public class GetDoctorsQueryHandler(ILearningJourneyContext context) : IRequestH
                              {
                                  Id = d.Id,
                                  FullName = d.FullName,
-                                 SpecialtyId = d.SpecialtyId,
                                  HospitalId = d.HospitalId
                              })
                              .ToListAsync(cancellationToken);

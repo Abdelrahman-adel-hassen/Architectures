@@ -14,7 +14,6 @@ public class GetHospitalByIdQueryHandler(ILearningJourneyContext context) : IReq
                              {
                                  Id = h.Id,
                                  Name = h.Name,
-                                 CityId = h.CityId
                              })
                              .SingleOrDefaultAsync(cancellationToken);
     }

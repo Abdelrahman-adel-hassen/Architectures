@@ -1,0 +1,41 @@
+@Architectures_HostAddress = http://localhost:5262
+@customerId = c1c2c3d4-0000-4000-8000-000000000021
+
+###
+# Get all customers
+GET {{Architectures_HostAddress}}/api/customers
+Accept: application/json
+
+###
+# Get a customer by ID
+GET {{Architectures_HostAddress}}/api/customers/{{customerId}}
+Accept: application/json
+
+###
+# Create a new customer
+POST {{Architectures_HostAddress}}/api/customers
+Content-Type: application/json
+
+{
+  "firstName": "Jane",
+  "lastName": "Doe",
+  "email": "jane.doe@example.com",
+  "phone": "+1234567890"
+}
+
+###
+# Update an existing customer
+PUT {{Architectures_HostAddress}}/api/customers/{{customerId}}
+Content-Type: application/json
+
+{
+  "id": "{{customerId}}",
+  "firstName": "Jane",
+  "lastName": "Doe",
+  "email": "jane.doe@newdomain.com",
+  "phone": "+1234567890"
+}
+
+###
+# Delete a customer
+DELETE {{Architectures_HostAddress}}/api/customers/{{customerId}}
