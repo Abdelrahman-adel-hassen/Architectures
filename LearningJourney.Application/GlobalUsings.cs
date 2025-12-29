@@ -5,3 +5,6 @@ global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;
 global using System.Diagnostics;
+global using AutoMapper;
+global using LearningJourney.Application.Common.Mappings;
+global using System.Reflection;

@@ -1,12 +1,12 @@
 namespace LearningJourney.Application.Features.Customers.Queries
 {
-    public record GetCustomerByIdQuery(Guid Id) : IRequest<CustomerDto>;
+    public record GetCustomerByIdQuery(Guid Id) : IRequest<CustomerDto?>;
 
-    public class GetCustomerByIdQueryHandler(ILearningJourneyContext context) : IRequestHandler<GetCustomerByIdQuery, CustomerDto>
+    public class GetCustomerByIdQueryHandler(ILearningJourneyContext context) : IRequestHandler<GetCustomerByIdQuery, CustomerDto?>
     {
         private readonly ILearningJourneyContext _context = context;
 
-        public async Task<CustomerDto> Handle(GetCustomerByIdQuery request, CancellationToken cancellationToken)
+        public async Task<CustomerDto?> Handle(GetCustomerByIdQuery request, CancellationToken cancellationToken)
         {
             return await _context.Customers
                                  .AsNoTracking()
@@ -18,7 +18,7 @@ namespace LearningJourney.Application.Features.Customers.Queries
                                      PhoneNumber = c.PhoneNumber,
                                      Email = c.Email
                                  })
-                                 .SingleOrDefaultAsync(cancellationToken);
+                                 .FirstOrDefaultAsync(cancellationToken);
         }
     }
 }
