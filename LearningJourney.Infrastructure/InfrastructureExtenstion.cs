@@ -1,6 +1,4 @@
-﻿using LearningJourney.Infrastructure.Persistence.Seed;
-using Microsoft.AspNetCore.Builder;
-namespace LearningJourney.Infrastructure;
+﻿namespace LearningJourney.Infrastructure;
 
 public static class InfrastructureExtenstion
 {
@@ -15,6 +13,23 @@ public static class InfrastructureExtenstion
 
         services.AddScoped<ILearningJourneyContext>(provider => provider.GetRequiredService<LearningJourneyContext>());
         services.AddScoped<IDataSeeder, DataSeeder>();
+        var provider = configuration.GetValue<string>("Caching:Provider") ?? "Redis";
+
+        if (string.Equals(provider, "Redis", StringComparison.OrdinalIgnoreCase))
+        {
+            // Ensure package Microsoft.Extensions.Caching.StackExchangeRedis is added to Infrastructure
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = configuration.GetConnectionString("Redis") ?? "localhost:6379";
+            });
+
+            services.AddSingleton<ICacheProvider, RedisCacheProvider>();
+        }
+        else
+        {
+            services.AddMemoryCache(); 
+            services.AddSingleton<ICacheProvider, MemoryCacheProvider>();
+        }
 
 
         return services.BuildServiceProvider();

@@ -1,6 +1,4 @@
-﻿using LearningJourney.Shared.Abstractions;
-
-namespace LearningJourney.Infrastructure.Persistence;
+﻿namespace LearningJourney.Infrastructure.Persistence;
 
 public class LearningJourneyContext(DbContextOptions<LearningJourneyContext> options) : DbContext(options), ILearningJourneyContext
 {

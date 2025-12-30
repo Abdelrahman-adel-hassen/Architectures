@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using LearningJourney.Shared.Entities;
-
-namespace LearningJourney.Application.Features.Appointments.Queries;
+﻿namespace LearningJourney.Application.Features.Appointments.Queries;
 
 public record GetAppointmentsQuery() : IRequest<List<GetAppointmentDto>>;
 public class GetAppointmentDto : IMapFrom<Appointment>

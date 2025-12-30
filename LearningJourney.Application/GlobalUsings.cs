@@ -1,15 +1,19 @@
-﻿global using LearningJourney.Application.Common.Appstractions;
+﻿global using AutoMapper;
+global using AutoMapper.QueryableExtensions;
+global using FluentValidation;
+global using LearningJourney.Application.Common.Appstractions;
+global using LearningJourney.Application.Common.Behaviors.Caching;
+global using LearningJourney.Application.Common.Exceptions;
+global using LearningJourney.Application.Common.Mappings;
+global using LearningJourney.Application.Features.Customers.Queries;
 global using LearningJourney.Shared.Entities;
 global using MediatR;
+global using Microsoft.AspNetCore.Diagnostics;
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;
 global using System.Diagnostics;
-global using AutoMapper;
-global using LearningJourney.Application.Common.Mappings;
 global using System.Reflection;
-global using FluentValidation;
-global using Microsoft.AspNetCore.Diagnostics;
-global using Microsoft.AspNetCore.Http;
-global using Microsoft.AspNetCore.Mvc;
-global using LearningJourney.Application.Common.Exceptions;
+

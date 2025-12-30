@@ -1,9 +1,11 @@
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
-
 namespace LearningJourney.Application.Features.Customers.Queries
 {
-    public record GetCustomersQuery() : IRequest<IEnumerable<CustomerDto>>;
+    public record GetCustomersQuery() : IRequest<IEnumerable<CustomerDto>>, ICacheableQuery
+    {
+        public string CacheKey => $"Appointment:{typeof(GetCustomersQuery)}";
+        public TimeSpan? Expiration => TimeSpan.FromMinutes(1);
+    }
+
     public class GetCustomersQueryHandler(ILearningJourneyContext context, IMapper mapper) : IRequestHandler<GetCustomersQuery, IEnumerable<CustomerDto>>
     {
         private readonly ILearningJourneyContext _context = context;
