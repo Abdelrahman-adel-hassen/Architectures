@@ -1,15 +1,12 @@
 namespace LearningJourney.Application.Features.Customers.Commands;
 
-public record UpdateCustomerCommand(Guid Id, string FirstName, string LastName, string Email) : IRequest<Unit>;
-
-public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerCommand, Unit>
+public record UpdateCustomerCommand(Guid Id, string FirstName, string LastName, string Email) : IRequest<Unit>, ICacheCommand
 {
-    private readonly ILearningJourneyContext _context;
-
-    public UpdateCustomerCommandHandler(ILearningJourneyContext context)
-    {
-        _context = context;
-    }
+    public string[] CacheKeys => ["Customers", $"CustomerById_{Id}"];
+}
+public class UpdateCustomerCommandHandler(ILearningJourneyContext context) : IRequestHandler<UpdateCustomerCommand, Unit>
+{
+    private readonly ILearningJourneyContext _context = context;
 
     public async Task<Unit> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
     {

@@ -17,7 +17,7 @@ POST {{Architectures_HostAddress}}/api/customers
 Content-Type: application/json
 
 {
-  "FullName": "Ahmed Ahmed",
+  "FullName": "Ahmed Ahmed_New2",
   "email": "jane.doe@example.com",
   "PhoneNumber": "+14567890"
 }
@@ -29,7 +29,7 @@ Content-Type: application/json
 
 {
   "id": "{{customerId}}",
-  "firstName": "Jane",
+  "firstName": "Jane14",
   "lastName": "Doe",
   "email": "jane.doe@newdomain.com",
   "phone": "+1234567890"

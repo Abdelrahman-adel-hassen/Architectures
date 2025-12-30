@@ -2,7 +2,7 @@ namespace LearningJourney.Application.Features.Customers.Queries
 {
     public record GetCustomersQuery() : IRequest<IEnumerable<CustomerDto>>, ICacheableQuery
     {
-        public string CacheKey => $"Appointment:{typeof(GetCustomersQuery)}";
+        public string CacheKey => $"Customers";
         public TimeSpan? Expiration => TimeSpan.FromMinutes(1);
     }
 

@@ -1,6 +1,10 @@
 namespace LearningJourney.Application.Features.Customers.Queries
 {
-    public record GetCustomerByIdQuery(Guid Id) : IRequest<CustomerDto?>;
+    public record GetCustomerByIdQuery(Guid Id) : IRequest<CustomerDto?>, ICacheableQuery
+    {
+        public string CacheKey => $"CustomerById_{Id}";
+        public TimeSpan? Expiration => TimeSpan.FromMinutes(1);
+    }
 
     public class GetCustomerByIdQueryHandler(ILearningJourneyContext context) : IRequestHandler<GetCustomerByIdQuery, CustomerDto?>
     {

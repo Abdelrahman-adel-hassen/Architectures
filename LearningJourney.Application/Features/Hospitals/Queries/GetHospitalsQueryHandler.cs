@@ -2,7 +2,7 @@ namespace LearningJourney.Application.Features.Hospitals.Queries;
 
 public record GetHospitalsQuery() : IRequest<IEnumerable<HospitalDto>>, ICacheableQuery
 {
-    public string CacheKey => $"Hospital:{typeof(GetHospitalsQuery)}";
+    public string CacheKey => $"Hospitals";
     public TimeSpan? Expiration => TimeSpan.FromMinutes(5);
 }
 
