@@ -1,4 +1,6 @@
-﻿namespace LearningJourney.Infrastructure;
+﻿using LearningJourney.Infrastructure.Exceptions;
+
+namespace LearningJourney.Infrastructure;
 
 public static class InfrastructureExtenstion
 {
@@ -17,17 +19,18 @@ public static class InfrastructureExtenstion
 
         if (string.Equals(provider, "Redis", StringComparison.OrdinalIgnoreCase))
         {
-            // Ensure package Microsoft.Extensions.Caching.StackExchangeRedis is added to Infrastructure
+            var redisConnection = configuration.GetConnectionString("Redis") ?? throw new RedisNotFoundException();
+
             services.AddStackExchangeRedisCache(options =>
             {
-                options.Configuration = configuration.GetConnectionString("Redis") ?? "localhost:6379";
+                options.Configuration = redisConnection;
             });
 
             services.AddSingleton<ICacheProvider, RedisCacheProvider>();
         }
         else
         {
-            services.AddMemoryCache(); 
+            services.AddMemoryCache();
             services.AddSingleton<ICacheProvider, MemoryCacheProvider>();
         }
 

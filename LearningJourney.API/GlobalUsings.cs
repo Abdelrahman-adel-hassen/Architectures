@@ -1,5 +1,5 @@
 ﻿global using LearningJourney.Application;
-global using LearningJourney.Application.Common.Behaviors;
+global using LearningJourney.Application.Common.Exceptions.Handler;
 global using LearningJourney.Application.Features.Appointments.Commands;
 global using LearningJourney.Application.Features.Appointments.Queries;
 global using LearningJourney.Application.Features.Customers.Commands;
@@ -11,6 +11,8 @@ global using LearningJourney.Application.Features.Hospitals.Queries;
 global using LearningJourney.Infrastructure;
 global using MediatR;
 global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.RateLimiting;
 global using Serilog;
 global using System.Reflection;
-global using LearningJourney.Application.Common.Exceptions.Handler;
+global using System.Threading.RateLimiting;
+
