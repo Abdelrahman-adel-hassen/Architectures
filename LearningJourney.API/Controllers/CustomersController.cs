@@ -1,12 +1,8 @@
 namespace LearningJourney.API.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
 [EnableRateLimiting("fixed")]
-public class CustomersController(ISender mediator) : ControllerBase
+public class CustomersController(ISender mediator) : BaseController(mediator)
 {
-    private readonly ISender _mediator = mediator;
-
     [HttpPost]
     [EnableRateLimiting("strict")]
     public async Task<IActionResult> Create(CreateCustomerCommand command)

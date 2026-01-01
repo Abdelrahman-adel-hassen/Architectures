@@ -1,7 +1,3 @@
-using MediatR;
-using LearningJourney.Application.Common.Appstractions;
-using LearningJourney.Shared.Entities;
-
 namespace LearningJourney.Application.Features.Hospitals.Commands;
 
 public record CreateHospitalCommand(string Name, Guid CityId) : IRequest<Guid>;

@@ -1,10 +1,6 @@
 namespace LearningJourney.API.Controllers;
-
-[ApiController]
-[Route("api/[controller]")]
-public class HospitalsController(ISender mediator) : ControllerBase
+public class HospitalsController(ISender mediator) : BaseController(mediator)
 {
-    private readonly ISender _mediator = mediator;
 
     [HttpPost]
     public async Task<IActionResult> Create(CreateHospitalCommand command)

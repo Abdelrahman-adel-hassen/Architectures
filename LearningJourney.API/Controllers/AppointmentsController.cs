@@ -1,10 +1,7 @@
 ﻿namespace LearningJourney.API.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class AppointmentsController(ISender mediator) : ControllerBase
+public class AppointmentsController(ISender mediator) : BaseController(mediator)
 {
-    private readonly ISender _mediator = mediator;
 
     [HttpPost]
     public async Task<IActionResult> Create(CreateAppointmentCommand command)

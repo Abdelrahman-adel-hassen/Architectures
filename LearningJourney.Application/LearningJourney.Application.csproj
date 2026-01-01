@@ -20,4 +20,8 @@
     <ProjectReference Include="..\LearningJourney.Shared\LearningJourney.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Attachments\Queries\" />
+  </ItemGroup>
+
 </Project>

@@ -1,7 +1,10 @@
-﻿global using LearningJourney.Application;
+﻿global using LearningJourney.API.Filters;
+global using LearningJourney.Application;
+global using LearningJourney.Application.Common.Appstractions;
 global using LearningJourney.Application.Common.Exceptions.Handler;
 global using LearningJourney.Application.Features.Appointments.Commands;
 global using LearningJourney.Application.Features.Appointments.Queries;
+global using LearningJourney.Application.Features.Attachments.Commands;
 global using LearningJourney.Application.Features.Customers.Commands;
 global using LearningJourney.Application.Features.Customers.Queries;
 global using LearningJourney.Application.Features.Doctors.Commands;
@@ -11,8 +14,10 @@ global using LearningJourney.Application.Features.Hospitals.Queries;
 global using LearningJourney.Infrastructure;
 global using MediatR;
 global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.Mvc.Filters;
+global using Microsoft.AspNetCore.Mvc.ModelBinding;
 global using Microsoft.AspNetCore.RateLimiting;
 global using Serilog;
 global using System.Reflection;
 global using System.Threading.RateLimiting;
-
+global using Microsoft.AspNetCore.Http.Features;

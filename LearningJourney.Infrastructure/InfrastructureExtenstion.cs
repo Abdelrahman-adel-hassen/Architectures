@@ -1,11 +1,14 @@
-﻿using LearningJourney.Infrastructure.Exceptions;
-
-namespace LearningJourney.Infrastructure;
+﻿namespace LearningJourney.Infrastructure;
 
 public static class InfrastructureExtenstion
 {
-    public static IServiceProvider AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddScoped<ILearningJourneyContext>(provider => provider.GetRequiredService<LearningJourneyContext>());
+        services.AddSingleton<IBackgroundTaskQueue, BackgroundTaskQueue>();
+        services.AddHostedService<FileExportBackgroundService>();
+        services.AddScoped<IDataSeeder, DataSeeder>();
+
         services.AddDbContext<LearningJourneyContext>(options =>
         {
             options.UseSqlServer(
@@ -13,8 +16,7 @@ public static class InfrastructureExtenstion
                b => b.MigrationsAssembly(typeof(LearningJourneyContext).Assembly.FullName));
         });
 
-        services.AddScoped<ILearningJourneyContext>(provider => provider.GetRequiredService<LearningJourneyContext>());
-        services.AddScoped<IDataSeeder, DataSeeder>();
+       
         var provider = configuration.GetValue<string>("Caching:Provider") ?? "Redis";
 
         if (string.Equals(provider, "Redis", StringComparison.OrdinalIgnoreCase))
@@ -35,7 +37,7 @@ public static class InfrastructureExtenstion
         }
 
 
-        return services.BuildServiceProvider();
+        return services;
     }
     public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
     {

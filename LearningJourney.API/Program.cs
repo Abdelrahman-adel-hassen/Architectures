@@ -32,7 +32,25 @@ builder.Services.AddRateLimiter(options =>
     //});
 });
 
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.ValueLengthLimit = int.MaxValue;
+    options.MultipartBodyLengthLimit = 1000 * 1024 * 1024; // 100MB
+    options.MultipartHeadersLengthLimit = int.MaxValue;
+});
+// Configure form options
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 1000 * 1024 * 1024; // 1GB
+    options.ValueLengthLimit = int.MaxValue;
+    options.MultipartHeadersLengthLimit = int.MaxValue;
+});
 
+// Configure IIS options
+builder.Services.Configure<IISServerOptions>(options =>
+{
+    options.MaxRequestBodySize = 1000 * 1024 * 1024; // 1GB
+});
 builder.Host.UseSerilog((context, config) =>
     config.ReadFrom.Configuration(context.Configuration));
 // Add services to the container.
@@ -49,9 +67,15 @@ builder.Services.AddMediatR(cfg =>
 });
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services
+    .AddApplication()
+    .AddInfrastructure(builder.Configuration);
 
-builder.Services.AddApplication();
+builder.Services.Configure<HostOptions>(options =>
+{
+    options.BackgroundServiceExceptionBehavior =
+        BackgroundServiceExceptionBehavior.Ignore; // for IBackgroundTaskQueue Exceptions
+});
 
 builder.Services
     .AddExceptionHandler<CustomExceptionHandler>();

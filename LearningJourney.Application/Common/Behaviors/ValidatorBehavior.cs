@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace LearningJourney.Application.Common.Behaviors
+﻿namespace LearningJourney.Application.Common.Behaviors
 {
     public class ValidatorBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {
