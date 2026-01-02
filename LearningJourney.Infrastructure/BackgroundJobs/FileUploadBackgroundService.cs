@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-
-namespace LearningJourney.Infrastructure.BackgroundJobs
+﻿namespace LearningJourney.Infrastructure.BackgroundJobs
 {
     public class FileExportBackgroundService(IBackgroundTaskQueue queue, ILogger<FileExportBackgroundService> logger) : BackgroundService
     {
