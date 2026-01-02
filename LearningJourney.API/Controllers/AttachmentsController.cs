@@ -28,10 +28,10 @@
         {
             var exportJobId = Guid.NewGuid().ToString();
 
-            taskQueue.QueueBackgroundWorkItem((Func<CancellationToken, Task>)(async ct =>
+            taskQueue.QueueBackgroundWorkItem(async ct =>
             {
                 await _mediator.Send(new ExportFilesCommand(request.FileNames, exportJobId), ct);
-            }));
+            });
 
             return Accepted(new { Message = "Export queued", JobId = exportJobId });
         }

@@ -68,7 +68,7 @@ builder.Services.AddMediatR(cfg =>
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services
-    .AddApplication()
+    .AddApplication(builder.Configuration)
     .AddInfrastructure(builder.Configuration);
 
 builder.Services.Configure<HostOptions>(options =>
@@ -105,5 +105,13 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.UseInfrastructure();
+
+app.Lifetime.ApplicationStarted.Register(() =>
+{
+    using var scope = app.Services.CreateScope();
+    var scheduler = scope.ServiceProvider.GetRequiredService<IBackgroundJobScheduler>();
+
+    JobBootstrapper.RegisterJobs(scheduler);
+});
 
 app.Run();

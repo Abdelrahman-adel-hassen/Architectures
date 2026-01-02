@@ -6,17 +6,27 @@ public static class InfrastructureExtenstion
     {
         services.AddScoped<ILearningJourneyContext>(provider => provider.GetRequiredService<LearningJourneyContext>());
         services.AddSingleton<IBackgroundTaskQueue, BackgroundTaskQueue>();
+        services.AddScoped<IBackgroundJobScheduler, HangfireJobScheduler>();
+        services.AddScoped<IExcelExporter, ClosedXmlExcelExporter>();
         services.AddHostedService<FileExportBackgroundService>();
         services.AddScoped<IDataSeeder, DataSeeder>();
-
+        
+        string connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("DefaultConnection is not configured.");
+       
         services.AddDbContext<LearningJourneyContext>(options =>
         {
             options.UseSqlServer(
-               configuration.GetConnectionString("DefaultConnection"),
+               connectionString,
                b => b.MigrationsAssembly(typeof(LearningJourneyContext).Assembly.FullName));
         });
 
-       
+        AddCache(services, configuration);
+        AddHangfireServices(services, configuration);
+        return services;
+    }
+
+    private static void AddCache(IServiceCollection services, IConfiguration configuration)
+    {
         var provider = configuration.GetValue<string>("Caching:Provider") ?? "Redis";
 
         if (string.Equals(provider, "Redis", StringComparison.OrdinalIgnoreCase))
@@ -35,7 +45,30 @@ public static class InfrastructureExtenstion
             services.AddMemoryCache();
             services.AddSingleton<ICacheProvider, MemoryCacheProvider>();
         }
+    }
 
+    public static IServiceCollection AddHangfireServices(this IServiceCollection services, IConfiguration configuration)
+    {
+        var hangfireConnection = configuration.GetConnectionString("HangfireConnection") ?? throw new HangfireNotFoundException();
+
+        services.AddHangfire(configuration =>
+        {
+            configuration.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                         .UseSimpleAssemblyNameTypeSerializer()
+                         .UseRecommendedSerializerSettings()
+                         .UseSqlServerStorage(hangfireConnection);
+            //.UseSqlServerStorage(connectionString, new SqlServerStorageOptions
+            //{
+            //    CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+            //    SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+            //    QueuePollInterval = TimeSpan.Zero,
+            //    UseRecommendedIsolationLevel = true,
+            //    UsePageLocksOnDequeue = true,
+            //    DisableGlobalLocks = true
+            //});
+        });
+
+        services.AddHangfireServer();
 
         return services;
     }
@@ -45,7 +78,7 @@ public static class InfrastructureExtenstion
         // 1. Use Api Endpoint services
 
         // 2. Use Application Use Case services
-
+        app.UseHangfireDashboard("/Dashboard");
         // 3. Use Data - Infrastructure services
         UseMigration(app);
 

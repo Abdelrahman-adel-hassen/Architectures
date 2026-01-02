@@ -1,4 +1,4 @@
-﻿namespace LearningJourney.Infrastructure.BackgroundJobs
+﻿namespace LearningJourney.Infrastructure.BackgroundJobs.Jobs
 {
     public class BackgroundTaskQueue : IBackgroundTaskQueue
     {
