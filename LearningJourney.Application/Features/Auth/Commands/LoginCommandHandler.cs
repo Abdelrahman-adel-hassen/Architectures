@@ -1,8 +1,4 @@
-using LearningJourney.Application.Common.Appstractions;
-
 namespace LearningJourney.Application.Features.Auth.Commands;
-
-using LearningJourney.Shared.Enums;
 
 public record LoginCommand(Guid IdNumber, string Password) : IRequest<LoginResponse>;
 

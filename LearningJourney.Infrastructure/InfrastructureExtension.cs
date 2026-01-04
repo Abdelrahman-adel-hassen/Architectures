@@ -1,6 +1,6 @@
-﻿namespace LearningJourney.Infrastructure;
+namespace LearningJourney.Infrastructure;
 
-public static class InfrastructureExtenstion
+public static class InfrastructureExtension
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
@@ -60,37 +60,24 @@ public static class InfrastructureExtenstion
                          .UseSimpleAssemblyNameTypeSerializer()
                          .UseRecommendedSerializerSettings()
                          .UseSqlServerStorage(hangfireConnection);
-            //.UseSqlServerStorage(connectionString, new SqlServerStorageOptions
-            //{
-            //    CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
-            //    SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
-            //    QueuePollInterval = TimeSpan.Zero,
-            //    UseRecommendedIsolationLevel = true,
-            //    UsePageLocksOnDequeue = true,
-            //    DisableGlobalLocks = true
-            //});
         });
 
         services.AddHangfireServer();
 
         return services;
     }
+
     public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
     {
-        // Configure the HTTP request pipeline.
-        // 1. Use Api Endpoint services
-
-        // 2. Use Application Use Case services
         app.UseHangfireDashboard("/Dashboard");
-        // 3. Use Data - Infrastructure services
         UseMigration(app);
 
         return app;
     }
+
     private static IApplicationBuilder UseMigration(IApplicationBuilder app)
     {
         MigrateDatabaseAsync(app.ApplicationServices).GetAwaiter().GetResult();
-
         SeedDataAsync(app.ApplicationServices).GetAwaiter().GetResult();
 
         return app;
@@ -99,7 +86,6 @@ public static class InfrastructureExtenstion
     private static async Task MigrateDatabaseAsync(IServiceProvider serviceProvider)
     {
         using var scope = serviceProvider.CreateScope();
-
         var context = scope.ServiceProvider.GetRequiredService<LearningJourneyContext>();
         await context.Database.MigrateAsync();
     }

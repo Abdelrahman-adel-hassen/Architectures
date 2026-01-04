@@ -1,8 +1,3 @@
-using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
-using FluentValidation;
-using LearningJourney.Application.Common.Behaviors;
-using LearningJourney.Application.Common.Behaviors.Caching;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRateLimiter(options =>
@@ -40,14 +35,7 @@ builder.Services.AddRateLimiter(options =>
 builder.Services.Configure<FormOptions>(options =>
 {
     options.ValueLengthLimit = int.MaxValue;
-    options.MultipartBodyLengthLimit = 1000 * 1024 * 1024; // 100MB
-    options.MultipartHeadersLengthLimit = int.MaxValue;
-});
-// Configure form options
-builder.Services.Configure<FormOptions>(options =>
-{
     options.MultipartBodyLengthLimit = 1000 * 1024 * 1024; // 1GB
-    options.ValueLengthLimit = int.MaxValue;
     options.MultipartHeadersLengthLimit = int.MaxValue;
 });
 
@@ -58,13 +46,11 @@ builder.Services.Configure<IISServerOptions>(options =>
 });
 builder.Host.UseSerilog((context, config) =>
     config.ReadFrom.Configuration(context.Configuration));
-// Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-var applicationAssembly = typeof(ApplocationExtenstion).Assembly;
+var applicationAssembly = typeof(ApplicationExtension).Assembly;
 
 builder.Services.AddMediatR(cfg =>
 {
@@ -117,8 +103,6 @@ builder.Services
 
 var app = builder.Build();
 
-// Add this to Program.cs for debugging
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -127,8 +111,6 @@ if (app.Environment.IsDevelopment())
 
 
 app.UseExceptionHandler(options => { });
-
-
 app.UseHttpsRedirection();
 
 app.UseRouting();

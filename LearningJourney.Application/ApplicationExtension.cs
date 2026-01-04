@@ -1,8 +1,8 @@
-﻿namespace LearningJourney.Application;
+namespace LearningJourney.Application;
 
-public static class ApplocationExtenstion
+public static class ApplicationExtension
 {
-    public static IServiceCollection AddApplication(this IServiceCollection services,IConfiguration configuration)
+    public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<ExportSettings>(configuration.GetSection("ExportSettings"));
         services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
