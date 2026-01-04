@@ -10,6 +10,9 @@ public static class InfrastructureExtenstion
         services.AddScoped<IExcelExporter, ClosedXmlExcelExporter>();
         services.AddHostedService<FileExportBackgroundService>();
         services.AddScoped<IDataSeeder, DataSeeder>();
+        services.AddScoped<IJwtService, JwtService>();
+        services.AddHttpContextAccessor();
+        services.AddScoped<ICurrentUserService, CurrentUserService>();
         
         string connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("DefaultConnection is not configured.");
        

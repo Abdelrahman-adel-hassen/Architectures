@@ -6,6 +6,7 @@ public class LearningJourneyContext(DbContextOptions<LearningJourneyContext> opt
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Doctor> Doctors { get; set; }
     public DbSet<Hospital> Hospitals { get; set; }
+    public DbSet<User> Users { get; set; }
 
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
     {

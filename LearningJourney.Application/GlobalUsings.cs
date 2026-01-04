@@ -9,6 +9,7 @@ global using LearningJourney.Application.Common.Mappings;
 global using LearningJourney.Application.Common.Settings;
 global using LearningJourney.Application.Features.Appointments.Queries;
 global using LearningJourney.Shared.Entities;
+global using LearningJourney.Shared.Enums;
 global using MediatR;
 global using Microsoft.AspNetCore.Diagnostics;
 global using Microsoft.AspNetCore.Http;

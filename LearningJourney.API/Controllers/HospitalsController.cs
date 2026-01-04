@@ -18,6 +18,8 @@ public class HospitalsController(ISender mediator) : BaseController(mediator)
     }
 
     [HttpDelete("{id}")]
+    [AdminOnly]
+    //[Authorize(Policy = "AdminPolicy")] // using Policy in program
     public async Task<IActionResult> Delete(Guid id)
     {
         await _mediator.Send(new DeleteHospitalCommand(id));

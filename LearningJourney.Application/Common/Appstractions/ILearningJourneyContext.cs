@@ -8,6 +8,7 @@ public interface ILearningJourneyContext
     DbSet<Customer> Customers { get; set; }
     DbSet<Doctor> Doctors { get; set; }
     DbSet<Hospital> Hospitals { get; set; }
+    DbSet<User> Users { get; set; }
 
     int SaveChanges();
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);

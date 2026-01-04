@@ -1,11 +1,13 @@
 @Architectures_HostAddress = http://localhost:5262
 @appointmentId = c1c2c3d4-0000-4000-8000-000000000021
 @customerId = c1c2c3d4-0000-4000-8000-000000000021
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIzZDIyNGY2OC01MjdkLTQyYmEtOTU0Ny00MDg0NGVkZjAxMDEiLCJ1bmlxdWVfbmFtZSI6IjdkMmM2ZDNmLTFiNjUtNGU3Zi05ZDQxLThjN2M2ZTJiOGEzMiIsImVtYWlsIjoiYWJkb0BlbWFpbC5jb20iLCJVc2VyVHlwZSI6IkN1c3RvbWVyIiwicm9sZSI6IkN1c3RvbWVyIiwianRpIjoiMzA2N2MyZjUtY2EzYi00Y2Y3LTkwNGUtOGNkODM4ODdjM2M5IiwibmJmIjoxNzY3NTAwNTE3LCJleHAiOjE3Njc1MDQxMTcsImlhdCI6MTc2NzUwMDUxNywiaXNzIjoiTGVhcm5pbmdKb3VybmV5QVBJIiwiYXVkIjoiTGVhcm5pbmdKb3VybmV5Q2xpZW50In0.NlZHzj0EV9Qd3IPMZatSzkyf3qEtesbcmhO4ZAl8sb0
 
 ###
 # Get all appointments
 GET {{Architectures_HostAddress}}/api/appointments
 Accept: application/json
+Authorization: Bearer token
 
 ###
 # Get an appointment by ID

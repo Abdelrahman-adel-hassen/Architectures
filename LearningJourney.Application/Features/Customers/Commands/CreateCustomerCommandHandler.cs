@@ -21,12 +21,23 @@ public class CreateCustomerCommandValidator : AbstractValidator<CreateCustomerCo
             .Matches(@"^\+?\d{10,15}$").WithMessage("Invalid phone number format");
     }
 }
-public class CreateCustomerCommandHandler(ILearningJourneyContext context) : IRequestHandler<CreateCustomerCommand, Guid>
+public class CreateCustomerCommandHandler(ILearningJourneyContext context, ICurrentUserService currentUserService) : IRequestHandler<CreateCustomerCommand, Guid>
 {
     private readonly ILearningJourneyContext _context = context;
+    private readonly ICurrentUserService _currentUserService = currentUserService;
 
     public async Task<Guid> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
     {
+        if (!_currentUserService.IsAuthenticated)
+        {
+            throw new UnauthorizedException("User must be authenticated to create a customer");
+        }
+
+        if (_currentUserService.UserType != UserType.Customer)
+        {
+            throw new UnauthorizedException("Only users with Customer type can create customers");
+        }
+
         var entity = new Customer
         {
             Id = Guid.NewGuid(),
