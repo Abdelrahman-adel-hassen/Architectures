@@ -2,14 +2,9 @@ namespace LearningJourney.Application.Features.Customers.Commands;
 
 public record DeleteCustomerCommand(Guid Id) : IRequest<Unit>;
 
-public class DeleteCustomerCommandHandler : IRequestHandler<DeleteCustomerCommand, Unit>
+public class DeleteCustomerCommandHandler(ILearningJourneyContext context) : IRequestHandler<DeleteCustomerCommand, Unit>
 {
-    private readonly ILearningJourneyContext _context;
-
-    public DeleteCustomerCommandHandler(ILearningJourneyContext context)
-    {
-        _context = context;
-    }
+    private readonly ILearningJourneyContext _context = context;
 
     public async Task<Unit> Handle(DeleteCustomerCommand request, CancellationToken cancellationToken)
     {

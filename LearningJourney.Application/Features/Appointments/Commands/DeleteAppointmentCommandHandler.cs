@@ -8,13 +8,9 @@ public class DeleteAppointmentCommandHandler(ILearningJourneyContext context) : 
 
     public async Task<Unit> Handle(DeleteAppointmentCommand request, CancellationToken cancellationToken)
     {
-        var appointment = await _context.Appointments.FirstOrDefaultAsync(a => a.Id == request.Id, cancellationToken);
-        if (appointment == null) 
-            throw new NotFoundException("Appointment", request.Id);
-
-        appointment.IsDeleted = true;
-        appointment.DeletedAt = DateTime.UtcNow;
-        appointment.DeletedBy = "System";
+        var appointment = await _context.Appointments.FirstOrDefaultAsync(a => a.Id == request.Id, cancellationToken) ?? throw new NotFoundException("Appointment", request.Id);
+       
+        _context.Appointments.Remove(appointment);
 
         await _context.SaveChangesAsync(cancellationToken);
         return Unit.Value;

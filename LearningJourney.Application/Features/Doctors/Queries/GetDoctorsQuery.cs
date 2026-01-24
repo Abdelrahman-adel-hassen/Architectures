@@ -1,13 +1,12 @@
 namespace LearningJourney.Application.Features.Doctors.Queries;
 
 public record GetDoctorsQuery() : IRequest<IEnumerable<DoctorDto>>;
-public class GetDoctorsQueryHandler(ILearningJourneyContext context) : IRequestHandler<GetDoctorsQuery, IEnumerable<DoctorDto>>
+public class GetDoctorsQueryHandler(ILearningJourneyContext context,ICurrentUserService currentUserService) : IRequestHandler<GetDoctorsQuery, IEnumerable<DoctorDto>>
 {
-    private readonly ILearningJourneyContext _context = context;
 
     public async Task<IEnumerable<DoctorDto>> Handle(GetDoctorsQuery request, CancellationToken cancellationToken)
     {
-        return await _context.Doctors
+        var doctors= await context.Doctors
                              .AsNoTracking()
                              .Select(d => new DoctorDto
                              {
@@ -16,5 +15,12 @@ public class GetDoctorsQueryHandler(ILearningJourneyContext context) : IRequestH
                                  HospitalId = d.HospitalId
                              })
                              .ToListAsync(cancellationToken);
+
+        var idNumber = currentUserService.Sid == Guid.Empty
+            ? throw new UnauthorizedAccessException("User is not authenticated.")
+            : currentUserService.Sid;
+        
+        
+        return doctors;
     }
 }

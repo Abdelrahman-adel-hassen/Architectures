@@ -4,6 +4,6 @@ public class DoctorDto
 {
     public Guid Id { get; set; }
     public string FullName { get; set; }
-    public Guid SpecialtyId { get; set; }
+    public Guid IdNumber { get; set; }
     public Guid HospitalId { get; set; }
 }

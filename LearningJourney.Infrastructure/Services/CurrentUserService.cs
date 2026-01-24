@@ -23,6 +23,15 @@ public class CurrentUserService : ICurrentUserService
         }
     }
 
+    public Guid Sid
+    {
+        get
+        {
+            var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.Sid)?.Value;
+            return Guid.TryParse(userIdClaim, out var sid) ? sid : Guid.Empty;
+        }
+    }
+
     public string? Username => _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.Name)?.Value; // This will contain IdNumber from JWT
 
     public UserType? UserType

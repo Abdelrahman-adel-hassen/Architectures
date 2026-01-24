@@ -122,8 +122,10 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.UseInfrastructure();
-
+if (!app.Environment.IsEnvironment("Test"))
+{
+    app.UseInfrastructure();
+}
 app.Lifetime.ApplicationStarted.Register(() =>
 {
     using var scope = app.Services.CreateScope();

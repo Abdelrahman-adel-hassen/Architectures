@@ -4,6 +4,8 @@ namespace LearningJourney.Application.Common.Appstractions;
 
 public interface IJwtService
 {
-    string GenerateToken(Guid userId, Guid idNumber, string email, UserType userType);
+    string GenerateToken(Guid userId, Guid idNumber,string userName, string email, UserType userType);
     bool ValidateToken(string token);
 }
+
+

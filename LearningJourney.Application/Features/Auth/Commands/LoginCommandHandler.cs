@@ -26,13 +26,12 @@ public class LoginCommandHandler(ILearningJourneyContext context, IJwtService jw
         var user = await _context.Users
             .FirstOrDefaultAsync(u => u.IdNumber == request.IdNumber, cancellationToken);
 
-        if (user is not null && BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
-        {
-            var token = _jwtService.GenerateToken(user.Id, user.IdNumber, user.Email ?? string.Empty, user.UserType);
+        if (user is null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
+            throw new NotFoundException("Invalid ID number or password");
+        
+        var token = _jwtService.GenerateToken(user.Id, user.IdNumber,user.FirstName, user.Email ?? string.Empty, user.UserType);
 
-            return new LoginResponse(token, user.Id, user.IdNumber, user.Email, user.UserType);
-        }
+        return new LoginResponse(token, user.Id, user.IdNumber, user.Email, user.UserType);
 
-        throw new NotFoundException("Invalid ID number or password");
     }
 }

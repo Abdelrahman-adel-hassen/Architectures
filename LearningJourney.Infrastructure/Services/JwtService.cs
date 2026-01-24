@@ -2,18 +2,11 @@ using LearningJourney.Shared.Enums;
 
 namespace LearningJourney.Infrastructure.Services;
 
-public class JwtService : IJwtService
+public class JwtService(IOptions<JwtSettings> jwtSettings) : IJwtService
 {
-    private readonly JwtSettings _jwtSettings;
-    private readonly JwtSecurityTokenHandler _tokenHandler;
-
-    public JwtService(IOptions<JwtSettings> jwtSettings)
-    {
-        _jwtSettings = jwtSettings.Value;
-        _tokenHandler = new JwtSecurityTokenHandler();
-    }
-
-    public string GenerateToken(Guid userId, Guid idNumber, string email, UserType userType)
+    private readonly JwtSettings _jwtSettings = jwtSettings.Value;
+    private readonly JwtSecurityTokenHandler _tokenHandler = new();
+    public string GenerateToken(Guid userId, Guid idNumber,string userName, string email, UserType userType)
     {
         var key = Encoding.UTF8.GetBytes(_jwtSettings.SecretKey);
         var signingCredentials = new SigningCredentials(
@@ -23,7 +16,8 @@ public class JwtService : IJwtService
         var claims = new[]
         {
             new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
-            new Claim(ClaimTypes.Name, idNumber.ToString()),
+            new Claim(ClaimTypes.Name, userName),
+            new Claim(ClaimTypes.Sid, idNumber.ToString()),
             new Claim(ClaimTypes.Email, email),
             new Claim("UserType", userType.ToString()),
             new Claim(ClaimTypes.Role, userType.ToString()),
