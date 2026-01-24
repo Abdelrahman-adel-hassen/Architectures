@@ -4,4 +4,5 @@
   <Project Path="LearningJourney.Domain/LearningJourney.Domain.csproj" />
   <Project Path="LearningJourney.Infrastructure/LearningJourney.Infrastructure.csproj" />
   <Project Path="LearningJourney.Shared/LearningJourney.Shared.csproj" />
+  <Project Path="LearningJourney.Tests/LearningJourney.Tests.csproj" />
 </Solution>
