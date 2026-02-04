@@ -37,13 +37,9 @@ public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
 
         RuleFor(x => x.PhoneNumber)
             .NotEmpty()
-            .WithMessage("Phone number is required for Customer")
+            .WithMessage("Phone number is required")
             .Matches(@"^\+?\d{10,15}$")
             .WithMessage("Invalid phone number format");
-
-        RuleFor(x => x.Email)
-            .NotEmpty()
-            .WithMessage("Email is required for Customer");
 
         //// Validation for Doctor
         //RuleFor(x => x.FullName)

@@ -16,7 +16,7 @@ public class CreateDoctorCommandHandler(ILearningJourneyContext context, ICurren
         }
 
         // Check if user has Doctor type
-        if (_currentUserService.UserType != UserType.Doctor)
+        if (_currentUserService.UserType != UserType.Admin && _currentUserService.UserType != UserType.Hospital)
         {
             throw new UnauthorizedException("Only users with Doctor type can create doctors");
         }
